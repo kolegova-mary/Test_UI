@@ -1,18 +1,24 @@
 package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
+import com.griddynamics.qa.vikta.uitesting.sample.ScenarioContext;
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.AddCategoryPage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class AddCategorySteps extends HomePageSteps {
+public class AddCategorySteps extends BaseSteps {
     private String titleUsed;
     private static String SUCCESSFUL_CATEGORY_MESSAGE_PREFIX = "Created category: ";
-    private static String SUCCESSFUL_EDIT_CATEGORY_MESSAGE_PREFIX="Updated category: ";
+    private static String SUCCESSFUL_EDIT_CATEGORY_MESSAGE_PREFIX = "Updated category: ";
+
+    public AddCategorySteps(ScenarioContext scenarioContext) {
+        super(scenarioContext);
+    }
 
 
     @When("admin types in some random value for '([^']+)' to add category")
@@ -49,7 +55,7 @@ public class AddCategorySteps extends HomePageSteps {
     }
 
     @Then("Successful category message contains the title used")
-    public void verifySuccessfulRegistrationMessageContainsNewTitle() {
+    public void verifySuccessfulCategoryMessageContainsNewTitle() {
         assertThat(getMessageText().trim())
                 .as("Successful category message was expected to contain the new title used.")
                 .contains(titleUsed);
@@ -64,7 +70,7 @@ public class AddCategorySteps extends HomePageSteps {
     }
 
     @Then("Successful edit category message contains the title used")
-    public void verifySuccessfulEditRegistrationMessageContainsNewTitle() {
+    public void verifySuccessfulEditCategoryMessageContainsNewTitle() {
         assertThat(getMessageText().trim())
                 .as("Successful edit category message was expected to contain the new title used.")
                 .contains(titleUsed);
@@ -77,7 +83,11 @@ public class AddCategorySteps extends HomePageSteps {
 
     @Then("fields are empty for category")
     public void clearFieldsCategory() {
-        assertTrue(checkIfWebElementEmpty(page().txtDescription)&&checkIfWebElementEmpty(page().txtPath)&&checkIfWebElementEmpty(page().txtTitle));
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(page().txtDescription.getText()).as("Description").isEqualTo("");
+        softly.assertThat(page().txtPath.getText()).as("Path").isEqualTo("");
+        softly.assertThat(page().txtTitle.getText()).as("Title").isEqualTo("");
+        softly.assertAll();
     }
 
     public void typeInTitle(String value) {
@@ -86,11 +96,6 @@ public class AddCategorySteps extends HomePageSteps {
 
     public void typeInDescription(String value) {
         typeIn(value, page().txtDescription);
-    }
-
-    private void typeIn(String value, WebElement targetElement) {
-        targetElement.clear();
-        targetElement.sendKeys(value);
     }
 
     public String getMessageText() {

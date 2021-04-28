@@ -24,7 +24,7 @@ Feature: Add image
     And Successful edit image message contains the title used
 
 
-  @clearFields
+  @clearFields @runConfig
   Scenario: Image fields should be empty after clicking Reset
     Given user opens Login page
     When user logins as ADMIN user

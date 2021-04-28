@@ -19,9 +19,14 @@ public interface TestDataAndProperties extends Config {
 
     String loginPageUrl();
     String registrationPageUrl();
+
     String adminAddCategoryPageUrl();
     String adminCreateUserPageUrl();
     String adminAddImagePageUrl();
+
+    String userAddAddressPageUrl();
+    String userAddressesPageUrl();
+    String userAddCardPageUrl();
 
     String adminName();
     String adminPassword();

@@ -1,5 +1,7 @@
 package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
+import com.griddynamics.qa.vikta.uitesting.sample.ScenarioContext;
+import com.griddynamics.qa.vikta.uitesting.sample.elements.Login;
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.HomePage;
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.LoginPage;
 import cucumber.api.java.en.Given;
@@ -14,6 +16,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Login functionality related steps.
  */
 public class LoginSteps extends BaseSteps {
+    public LoginSteps(ScenarioContext scenarioContext) {
+        super(scenarioContext);
+    }
+
     @When("user types '([^']+)' as loginname and '([^']+)' as password and hits Submit")
     public void goLogin(String username, String password) {
         login(username, password);
@@ -36,6 +42,17 @@ public class LoginSteps extends BaseSteps {
         assertThat(getErrorMessage().trim())
                 .as("Error message was nor shown or had unexpected content.")
                 .contains(text);
+    }
+
+    @Then("user types loginname and password and hits Submit")
+    public void goHomePage() {
+        page().txtLoginname.clear();
+        page().txtLoginname.sendKeys(((Login) getScenarioContext().getContext("Login")).getLoginname());
+
+        page().txtPassword.clear();
+        page().txtPassword.sendKeys((((Login) getScenarioContext().getContext("Login")).getPassword()));
+        page().btnSubmitLogin.click();
+
     }
 
     public HomePage login(String username, String password) {

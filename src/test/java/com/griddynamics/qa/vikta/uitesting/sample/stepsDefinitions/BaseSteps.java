@@ -1,6 +1,7 @@
 package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
 import com.griddynamics.qa.vikta.uitesting.sample.Hooks;
+import com.griddynamics.qa.vikta.uitesting.sample.ScenarioContext;
 import com.griddynamics.qa.vikta.uitesting.sample.config.DataProvider;
 import com.griddynamics.qa.vikta.uitesting.sample.config.TestDataAndProperties;
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.BasePage;
@@ -10,6 +11,9 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -77,16 +81,80 @@ abstract class BaseSteps {
         }
     }
 
+    public void typeIn(String value, WebElement targetElement) {
+        targetElement.clear();
+        targetElement.sendKeys(value);
+    }
+
+    protected String generateRandomLoginName() {
+        return generateRandomString(729, 1);
+    }
+
+    protected String generateRandomPassword() {
+        return generateRandomString(288, 1);
+    }
+
     protected String generateRandomEmail() {
         String[] domens = new String[]{".ru", ".com"};
-        return generateRandomString(64, 1) + "@" +
-                generateRandomString(5, 1) + domens[(int) (Math.random() * domens.length)];
+        return generateRandomString(250, 1) + "@" +
+                generateRandomString(120, 1) + domens[(int) (Math.random() * domens.length)];
 
     }
 
+    protected String generateRandomUserNameParameter() {
+        return generateRandomString(288, 1);
+    }
+
+    protected String generateRandomStreet() {
+        return generateRandomString(3010, 1);
+    }
+
+    protected String generateRandomStreetAdditionalOrCity() {
+        return generateRandomString(1024, 1);
+    }
+
+    protected String generateRandomRegion() {
+        return generateRandomString(4096, 1);
+    }
+
+    protected String generateRandomPostalCode() {
+        return generateRandomString(40, 1);
+    }
+
+    protected String generateRandomCardNickname() {
+        return generateRandomString(4096, 1);
+    }
+
+    protected String generateRandomCardNumber() {
+        return generateRandomString(16, 14);
+    }
+
+    protected String generateRandomCardCode() {
+        return generateRandomString(4, 3);
+    }
+
+    protected String generateRandomOwner() {
+        return generateRandomString(4096, 1);
+    }
+
+    protected String generateRandomAddressNickname() {
+        return generateRandomString(2048, 1);
+    }
+
     protected String generateRandomPrice() {
-        Double cur =  Math.random() * 10000;
+        Double cur = Math.random() * 10000;
         return cur.toString();
+    }
+
+    protected String generateDateString() {
+        LocalDateTime rangeEnd = LocalDateTime.now().minusMinutes(1);
+        LocalDateTime rangeStart = rangeEnd.minusYears(71);
+
+        long diffInMillis = rangeEnd.toEpochSecond(ZoneOffset.UTC) - rangeStart.toEpochSecond(ZoneOffset.UTC);
+        long resultInMillis = (long) (rangeStart.toEpochSecond(ZoneOffset.UTC) + Math.random() * diffInMillis);
+
+        LocalDateTime localDateTime = LocalDateTime.ofEpochSecond(resultInMillis, 0, ZoneOffset.UTC);
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(localDateTime);
     }
 
     protected String generateRandomTags() {
@@ -96,15 +164,20 @@ abstract class BaseSteps {
             cur += generateRandomString(7, 2) + ", ";
         }
         return cur += generateRandomString(7, 2) + "]";
-
-
-    }
-
-    protected boolean checkIfWebElementEmpty(WebElement target) {
-        return target.getText().equals("");
     }
 
     protected String generateRandomString() {
         return generateRandomString(16, 4);
+    }
+
+    public ScenarioContext scenarioContext;
+
+    public BaseSteps(ScenarioContext scenarioContext) {
+        this.scenarioContext = scenarioContext;
+    }
+
+
+    public ScenarioContext getScenarioContext() {
+        return scenarioContext;
     }
 }

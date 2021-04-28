@@ -1,41 +1,47 @@
 package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
+import com.griddynamics.qa.vikta.uitesting.sample.ScenarioContext;
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.AddUserPage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class AddUserSteps extends HomePageSteps {
+public class AddUserSteps extends BaseSteps {
     private static String SUCCESSFUL_ADD_USER_MESSAGE_PREFIX = "Created user account ";
     private static String SUCCESSFUL_EDIT_USER_MESSAGE_PREFIX = "Updated user account ";
 
     private String loginnameUsed;
 
+    public AddUserSteps(ScenarioContext scenarioContext) {
+        super(scenarioContext);
+    }
+
     @When("admin types in some random value for '([^']+)' to add user")
     public void typeInto(String fieldName) {
         switch (fieldName.toUpperCase()) {
             case "LOGINNAME":
-                this.loginnameUsed = generateRandomString();
+                this.loginnameUsed = generateRandomLoginName();
                 typeInLoginname(loginnameUsed);
                 break;
             case "PASSWORD":
-                typeInPassword(generateRandomString());
+                typeInPassword(generateRandomPassword());
                 break;
             case "EMAIL":
                 typeInEmail(generateRandomEmail());
                 break;
             case "SURNAME":
-                typeInSurname(generateRandomString());
+                typeInSurname(generateRandomUserNameParameter());
                 break;
             case "NAME":
-                typeInFirstname(generateRandomString());
+                typeInFirstname(generateRandomUserNameParameter());
                 break;
             case "PATRONIM":
-                typeInPatronim(generateRandomString());
+                typeInPatronim(generateRandomUserNameParameter());
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported Create user page field name: " + fieldName);
@@ -84,9 +90,14 @@ public class AddUserSteps extends HomePageSteps {
 
     @Then("fields are empty for user")
     public void clearFields() {
-        assertTrue(checkIfWebElementEmpty(page().txtEmail) && checkIfWebElementEmpty(page().txtPassword)
-                && checkIfWebElementEmpty(page().txtLoginName) && checkIfWebElementEmpty(page().txtMiddleName)
-                && checkIfWebElementEmpty(page().txtName) && checkIfWebElementEmpty(page().txtSurname));
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(page().txtEmail.getText()).as("Email").isEqualTo("");
+        softly.assertThat(page().txtMiddleName.getText()).as("Middle name").isEqualTo("");
+        softly.assertThat(page().txtName.getText()).as("Name").isEqualTo("");
+        softly.assertThat(page().txtSurname.getText()).as("Surname").isEqualTo("");
+        softly.assertThat(page().txtLoginName.getText()).as("LoginName").isEqualTo("");
+        softly.assertThat(page().txtPassword.getText()).as("Password").isEqualTo("");
+        softly.assertAll();
     }
 
     public void typeInLoginname(String value) {
@@ -111,11 +122,6 @@ public class AddUserSteps extends HomePageSteps {
 
     public void typeInEmail(String value) {
         typeIn(value, page().txtEmail);
-    }
-
-    private void typeIn(String value, WebElement targetElement) {
-        targetElement.clear();
-        targetElement.sendKeys(value);
     }
 
     public String getMessageText() {

@@ -4,36 +4,36 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class AdminHomePage extends BasePage{
-    @FindBy(xpath = "//a[contains(@id,\"aHome\")]")
+    @FindBy(xpath = "//a[@id='aHome']")
     public WebElement btoGoAdminHome;
 
-    @FindBy(xpath = "//a[contains(@id,\"aAdminHut\")]")
+    @FindBy(xpath = "//a[@id='aAdminHut']")
     public WebElement btoShowHut;
 
-    @FindBy(xpath = "//a[contains(@id,\"aImages\")]")
+    @FindBy(xpath = "//a[@id='aImages']")
     public WebElement btoShowImages;
 
-    @FindBy(xpath = "//a[contains(@id,\"aAddImage\")]")
+    @FindBy(xpath = "//a[@id='aAddImage']")
     public WebElement btoAddImage;
 
-    @FindBy(xpath = "//a[contains(@id,\"aAddImage\")]")
+    @FindBy(xpath = "//a[@id='aAddImage']")
     public WebElement btoShowCategories;
 
-    @FindBy(xpath = "//a[contains(@id,\"aAddCategory\")]")
+    @FindBy(xpath = "//a[@id='aAddCategory']")
     public WebElement btoAddCategory;
 
-    @FindBy(xpath = "//a[contains(@href,\"/admin/users\")]")
+    @FindBy(xpath = "//a[@href='/admin/users']")
     public WebElement btoShowUsers;
 
-    @FindBy(xpath = "//a[contains(@id,\"aAddUser\")]")
+    @FindBy(xpath = "//a[@id='aAddUser']")
     public WebElement btoAddUser;
 
-    @FindBy(xpath = "//a[contains(@id,\"aUsersStuff\")]")
+    @FindBy(xpath = "//a[@id='aUsersStuff']")
     public WebElement btoShowUsersStuff;
 
-    @FindBy(xpath = "//a[contains(@id,\"aUsrCards\")]")
+    @FindBy(xpath = "//a[@id='aUsrCards']")
     public WebElement btoShowCards;
 
-    @FindBy(xpath = "//a[contains(@id,\"aUsrAddCard\")]")
+    @FindBy(xpath = "//a[@id='aUsrAddCard']")
     public WebElement btoAddCard;
 }

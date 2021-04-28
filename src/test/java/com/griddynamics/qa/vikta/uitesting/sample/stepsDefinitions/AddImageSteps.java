@@ -1,19 +1,25 @@
 package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
+import com.griddynamics.qa.vikta.uitesting.sample.ScenarioContext;
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.AddImagePage;
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.AddUserPage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class AddImageSteps extends HomePageSteps {
+public class AddImageSteps extends BaseSteps {
     private String titleImageUsed;
     private static String SUCCESSFUL_IMAGE_MESSAGE_PREFIX = "Created ";
     private static String SUCCESSFUL_IMAGE_EDIT_MESSAGE_PREFIX = "Updated ";
+
+    public AddImageSteps(ScenarioContext scenarioContext) {
+        super(scenarioContext);
+    }
 
     @When("admin types in some random value for '([^']+)' to add image")
     public void typeInto(String fieldName) {
@@ -86,9 +92,14 @@ public class AddImageSteps extends HomePageSteps {
 
     @Then("image fields are empty")
     public void clearFieldsImage() {
-        assertTrue(checkIfWebElementEmpty(page().txtImageUrl) && checkIfWebElementEmpty(page().txtTitle)
-                && checkIfWebElementEmpty(page().txtDescription) && checkIfWebElementEmpty(page().txtAuthor)
-                && checkIfWebElementEmpty(page().txtPrice) && checkIfWebElementEmpty(page().txtTags));
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(page().txtImageUrl.getText()).as("ImageUrl").isEqualTo("");
+        softly.assertThat(page().txtAuthor.getText()).as("Author").isEqualTo("");
+        softly.assertThat(page().txtDescription.getText()).as("Description").isEqualTo("");
+        softly.assertThat(page().txtTags.getText()).as("Tags").isEqualTo("");
+        softly.assertThat(page().txtPrice.getText()).as("Price").isEqualTo("");
+        softly.assertThat(page().txtTitle.getText()).as("Title").isEqualTo("");
+        softly.assertAll();
     }
 
     public void typeInImageUrl(String value) {
@@ -113,11 +124,6 @@ public class AddImageSteps extends HomePageSteps {
 
     public void typeInTags(String value) {
         typeIn(value, page().txtTags);
-    }
-
-    private void typeIn(String value, WebElement targetElement) {
-        targetElement.clear();
-        targetElement.sendKeys(value);
     }
 
     public String getMessageText() {

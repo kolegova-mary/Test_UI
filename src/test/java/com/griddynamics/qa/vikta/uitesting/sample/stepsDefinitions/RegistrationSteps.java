@@ -1,5 +1,7 @@
 package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
+import com.griddynamics.qa.vikta.uitesting.sample.ScenarioContext;
+import com.griddynamics.qa.vikta.uitesting.sample.elements.Login;
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.RegistrationPage;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -16,28 +18,36 @@ public class RegistrationSteps extends BaseSteps {
     private static String SUCCESSFUL_REGISTRATION_MESSAGE_PREFIX = "User has been registered successfully: ";
     //TODO: Move to TestContext map as soon as it ready.
     private String loginnameUsed;
+    Login login = new Login();
+
+    public RegistrationSteps(ScenarioContext scenarioContext) {
+        super(scenarioContext);
+    }
+
 
     @When("user types in some random value for '([^']+)'")
     public void typeInto(String fieldName) {
         switch (fieldName.toUpperCase()) {
             case "LOGINNAME":
-                this.loginnameUsed = generateRandomString();
+                this.loginnameUsed = generateRandomLoginName();
+                login.setLoginname(loginnameUsed);
                 typeInLoginname(loginnameUsed);
                 break;
             case "SURNAME":
-                typeInSurname(generateRandomString());
+                typeInSurname(generateRandomUserNameParameter());
                 break;
             case "FIRSTNAME":
-                typeInFirstname(generateRandomString());
+                typeInFirstname(generateRandomUserNameParameter());
                 break;
             case "PATRONIM":
-                typeInPatronim(generateRandomString());
+                typeInPatronim(generateRandomUserNameParameter());
                 break;
             case "EMAIL":
                 typeInEmail(generateRandomEmail());
                 break;
             case "PASSWORD":
-                typeInPassword(generateRandomString());
+                login.setPassword(generateRandomPassword());
+                typeInPassword(login.getPassword());
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported Registration page field name: " + fieldName);
@@ -45,7 +55,8 @@ public class RegistrationSteps extends BaseSteps {
     }
 
     @When("user hits the Register User button")
-    public void toSaveUser(){
+    public void toSaveUser() {
+        getScenarioContext().setContext("Login", login);
         page().btnRegisterUser.click();
     }
 
@@ -64,6 +75,11 @@ public class RegistrationSteps extends BaseSteps {
         assertThat(getMessageText().trim())
                 .as("Successful registration message was expected to contain the new username used.")
                 .contains(loginnameUsed);
+    }
+
+    @When("user hits log in")
+    public void toLogin() {
+        page().btnGoToLoginIn.click();
     }
 
     public void typeInLoginname(String value) {
@@ -88,11 +104,6 @@ public class RegistrationSteps extends BaseSteps {
 
     public void typeInEmail(String value) {
         typeIn(value, page().tbEmail);
-    }
-
-    private void typeIn(String value, WebElement targetElement) {
-        targetElement.clear();
-        targetElement.sendKeys(value);
     }
 
     public String getMessageText() {

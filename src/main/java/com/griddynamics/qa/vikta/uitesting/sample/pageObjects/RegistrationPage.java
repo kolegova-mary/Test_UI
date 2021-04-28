@@ -20,7 +20,7 @@ public class RegistrationPage extends BasePage {
     @FindBy(id = "tbMiddleName")
     public WebElement tbMiddleName;
 
-    @FindBy(xpath = "//input[contains(@id,\"tbEmail\")]")
+    @FindBy(id = "tbEmail")
     public WebElement tbEmail;
 
     @FindBy(id = "tbPassword")
@@ -29,13 +29,13 @@ public class RegistrationPage extends BasePage {
     @FindBy(id = "btnSubmitGoToHome")
     public WebElement btnGoToHome;
 
-    @FindBy(xpath = "//a[contains(@href,\"/registration\")]")
+    @FindBy(xpath = "//a[@href='/registration']")
     public WebElement btnGoSignUp;
 
-    @FindBy(xpath = "//a[contains(@href,\"/login\")]")
+    @FindBy(xpath = "//a[@href='/login']")
     public WebElement btnGoToLoginIn;
 
-    @FindBy(xpath = "//button[contains(@id,\"btnRegister\")]")
+    @FindBy(xpath = "//button[@id='btnRegister']")
     public WebElement btnRegisterUser;
 
     @FindBy(id = "tSuccessMessage")

@@ -23,6 +23,6 @@ public class LoginPage {
     @FindBy(xpath = "//div[@class='login']//p[contains(@style, 'color: #FF1C19')]")
     public WebElement lblError;
 
-    @FindBy(xpath = "//button[contains(@id,\"btnSubmitGoToRegistration\")]")
+    @FindBy(xpath = "//button[@id='btnSubmitGoToRegistration']")
     public WebElement btnSignUp;
 }

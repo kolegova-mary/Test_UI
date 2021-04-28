@@ -4,33 +4,30 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class AddImagePage {
-    @FindBy(xpath = "//input[contains(@id,\"tbUEL\")]")
+    @FindBy(xpath = "//input[@id='tbUEL']")
     public WebElement txtImageUrl;
 
-    @FindBy(xpath = "//input[contains(@id,\"tbTitle\")]")
+    @FindBy(xpath = "//input[@id='tbTitle']")
     public WebElement txtTitle;
 
-    @FindBy(xpath = "//input[contains(@id,\"tbDescription\")]")
+    @FindBy(xpath = "//input[@id='tbDescription']")
     public WebElement txtDescription;
 
-    @FindBy(xpath = "//input[contains(@id,\"tbAuthor\")]")
+    @FindBy(xpath = "//input[@id='tbAuthor']")
     public WebElement txtAuthor;
 
-    @FindBy(xpath = "//input[contains(@id,\"tbPrice\")]")
+    @FindBy(xpath = "//input[@id='tbPrice']")
     public WebElement txtPrice;
 
-    @FindBy(xpath = "//input[contains(@id,\"tbTags\")]")
+    @FindBy(xpath = "//input[@id='tbTags']")
     public WebElement txtTags;
 
-    @FindBy(xpath = "//input[contains(@type,\"range\")]")
-    public WebElement rangeRating;
-
-    @FindBy(xpath = "//button[contains(@id,\"btnSave\")]")
+    @FindBy(xpath = "//button[@id='btnSave']")
     public WebElement btnSaveImage;
 
-    @FindBy(xpath = "//input[contains(@id,\"btnReset\")]")
+    @FindBy(xpath = "//input[@id='btnReset']")
     public WebElement btnResetImage;
 
-    @FindBy(xpath = "//div[contains(@id,\"divMsgOrErr\")]")
+    @FindBy(xpath = "//div[@id='divMsgOrErr']")
     public WebElement tSuccessImageMessage;
 }

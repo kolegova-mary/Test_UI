@@ -7,12 +7,12 @@ import org.openqa.selenium.support.FindBy;
  * Page Object of Home page
  */
 public class HomePage extends BasePage {
-    @FindBy(xpath = "//a[contains(@id,\"aHome\")]")
+    @FindBy(xpath = "//a[@id='aHome']")
     public WebElement bToGoHome;
 
-    @FindBy(xpath = "//a[contains(@id,\"aRegistration\")]")
+    @FindBy(xpath = "//a[@id='aRegistration']")
     public WebElement bToSignUp;
 
-    @FindBy(xpath = "//a[contains(@id,\"aLogin\")]")
+    @FindBy(xpath = "//a[@id='aLogin']")
     public WebElement bToLogIn;
 }
