@@ -118,7 +118,7 @@ abstract class BaseSteps {
     }
 
     protected String generateRandomPostalCode() {
-        return generateRandomString(40, 1);
+        return generateRandomString(20, 1);
     }
 
     protected String generateRandomCardNickname() {
@@ -126,11 +126,22 @@ abstract class BaseSteps {
     }
 
     protected String generateRandomCardNumber() {
-        return generateRandomString(16, 14);
+        Integer cnt = 2 + (int) (Math.random() * 3);
+        String candidate = "";
+        for (int i = 0; i < 3; i++) {
+            candidate += generateRandomCardCode();
+        }
+        for (int i = 0; i < cnt; i++) {
+            Integer cur = (int) (Math.random() * 10);
+            String last = cur.toString();
+            candidate += last;
+        }
+        return candidate;
     }
 
     protected String generateRandomCardCode() {
-        return generateRandomString(4, 3);
+        Integer cur = 1000 + (int) (Math.random() * 9000);
+        return cur.toString();
     }
 
     protected String generateRandomOwner() {

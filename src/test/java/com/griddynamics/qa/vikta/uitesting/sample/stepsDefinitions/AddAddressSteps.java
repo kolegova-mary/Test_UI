@@ -5,6 +5,7 @@ import com.griddynamics.qa.vikta.uitesting.sample.elements.Address;
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.AddAddressPage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -61,6 +62,28 @@ public class AddAddressSteps extends BaseSteps {
     @When("user hits clear address")
     public void toResetAddress() {
         page().btnReset.click();
+    }
+
+    @When("user hits delete address")
+    public void toDeleteAddress(){
+        page().btnDelete.click();
+    }
+
+    @Then("address fields are empty")
+    public void clearFieldsAddress() {
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(page().txtStreet.getText()).as("Street").isEqualTo("");
+        softly.assertThat(page().txtAdditionalStreetInfo.getText()).as("AdditionalInfo").isEqualTo("");
+        softly.assertThat(page().txtCity.getText()).as("City").isEqualTo("");
+        softly.assertThat(page().txtRegion.getText()).as("Region").isEqualTo("");
+        softly.assertThat(page().txtPostalCode.getText()).as("PostalCode").isEqualTo("");
+        softly.assertThat(page().txtAddressNickname.getText()).as("AddressNickname").isEqualTo("");
+        softly.assertAll();
+    }
+
+    @Then("delete button is visible for address")
+    public void showDelete(){
+        page().btnDelete.isDisplayed();
     }
 
     @Then("Successful add address message is displayed")

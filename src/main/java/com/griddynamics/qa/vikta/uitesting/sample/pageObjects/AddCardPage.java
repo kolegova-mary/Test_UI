@@ -3,7 +3,7 @@ package com.griddynamics.qa.vikta.uitesting.sample.pageObjects;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class AddCardPage {
+public class AddCardPage  {
     @FindBy(xpath = "//input[@id='tbNumber']")
     public WebElement txtCardNumber;
 
@@ -27,4 +27,7 @@ public class AddCardPage {
 
     @FindBy(xpath = "//div[@id='divMsgOrErr']")
     public WebElement tSuccessOrErrorMessage;
+
+    @FindBy(xpath = "//a[@id='btnDelete2']")
+    public WebElement btnDelete;
 }

@@ -8,15 +8,6 @@ protected String street;
     protected String postalCode;
     protected String addressNickname;
 
-    public Address(String street, String additionalStreetInfo, String city, String region, String postalCode, String addressNickname) {
-        this.street = street;
-        this.additionalStreetInfo = additionalStreetInfo;
-        this.city = city;
-        this.region = region;
-        this.postalCode = postalCode;
-        this.addressNickname = addressNickname;
-    }
-
     public Address() {
 
     }

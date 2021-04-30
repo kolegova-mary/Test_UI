@@ -2,7 +2,7 @@ Feature: Add category
   As admin
   I should be able to add a new category
 
-  @addCategory
+  @addCategory @smoke @runConfig
   Scenario: Admin should be able to add and edit category
     Given user opens Login page
     When user logins as ADMIN user
@@ -20,7 +20,7 @@ Feature: Add category
     Then Successful edit category message is displayed
     And Successful edit category message contains the title used
 
-  @clearFields
+  @clearFields @smoke
   Scenario: Admin should be able clear fields for category
     Given user opens Login page
     When user logins as ADMIN user

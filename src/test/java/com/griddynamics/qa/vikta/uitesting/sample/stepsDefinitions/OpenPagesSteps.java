@@ -8,6 +8,10 @@ public class OpenPagesSteps extends BaseSteps {
         super(scenarioContext);
     }
 
+    @Given("user opens home page")
+    public void openHomePage(){
+        getDriver().get(getData().baseUrl());
+    }
 
     @Given("user opens Registration page")
     public void openRegistrationPage() {

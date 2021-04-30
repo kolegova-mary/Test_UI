@@ -7,12 +7,8 @@ public class Card {
     protected String expirationDate;
     protected String nickname;
 
-    public Card(String number, String code, String owner, String expirationDate, String nickname) {
-        this.number = number;
-        this.code = code;
-        this.owner = owner;
-        this.expirationDate = expirationDate;
-        this.nickname = nickname;
+    public Card() {
+
     }
 
     public String getNumber() {
@@ -51,7 +47,7 @@ public class Card {
         return nickname;
     }
 
-    public void setNickname(String nickname) {
+    public void setNickname(String tags) {
         this.nickname = nickname;
     }
 }

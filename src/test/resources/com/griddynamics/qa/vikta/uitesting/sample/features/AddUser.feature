@@ -2,7 +2,7 @@ Feature: Create user
   As admin
   I should be able to create and edit user
 
-  @createUser @editUser
+  @createUser @editUser @smoke
   Scenario: Admin is able to create and edit user
     Given user opens Login page
     When user logins as ADMIN user
@@ -23,7 +23,7 @@ Feature: Create user
     Then Successful edit user message is displayed
     And Successful edit user message contains the login name used
 
-  @clearFields
+  @clearFields @smoke
   Scenario: Admin is able to clear fields for user
     Given user opens Login page
     When user logins as ADMIN user

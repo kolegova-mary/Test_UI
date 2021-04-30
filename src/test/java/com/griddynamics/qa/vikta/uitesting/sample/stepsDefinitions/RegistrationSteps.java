@@ -25,7 +25,7 @@ public class RegistrationSteps extends BaseSteps {
     }
 
 
-    @When("user types in some random value for '([^']+)'")
+    @When("user types in some random value for '([^']+)' to register")
     public void typeInto(String fieldName) {
         switch (fieldName.toUpperCase()) {
             case "LOGINNAME":

@@ -3,7 +3,7 @@ package com.griddynamics.qa.vikta.uitesting.sample.pageObjects;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class AddressesPage {
+public class AddressesPage  {
     @FindBy(xpath = "//td[@data-kind='street']")
     public WebElement tdStreet;
 

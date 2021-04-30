@@ -27,6 +27,10 @@ public interface TestDataAndProperties extends Config {
     String userAddAddressPageUrl();
     String userAddressesPageUrl();
     String userAddCardPageUrl();
+    String userCardsPageUrl();
+
+    String userDetailsItemPageUrl();
+    String userCartPageUrl();
 
     String adminName();
     String adminPassword();

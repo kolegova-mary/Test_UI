@@ -4,11 +4,6 @@ public class Login {
     protected String loginname;
     protected String password;
 
-    protected Login(String loginname, String password) {
-        this.loginname = loginname;
-        this.password = password;
-    }
-
     public Login() {
 
     }

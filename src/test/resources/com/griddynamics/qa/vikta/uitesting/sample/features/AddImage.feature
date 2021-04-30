@@ -2,7 +2,7 @@ Feature: Add image
   As admin
   I should be able to add a new image
 
-  @addImage
+  @addImage @smoke
   Scenario: Admin should be able to add and edit image
     Given user opens Login page
     When user logins as ADMIN user
@@ -24,7 +24,7 @@ Feature: Add image
     And Successful edit image message contains the title used
 
 
-  @clearFields @runConfig
+  @clearFields @smoke
   Scenario: Image fields should be empty after clicking Reset
     Given user opens Login page
     When user logins as ADMIN user
